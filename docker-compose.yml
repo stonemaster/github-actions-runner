@@ -1,0 +1,10 @@
+version: '3.6'
+
+services:
+  github-runner:
+    image: github-runner:latest
+    container_name: githubrunner
+    restart: always
+    environment:
+      - GITHUB_REPO_URL=https://github.com/stonemaster/github-actions-runner
+      - RUNNER_TOKEN=
