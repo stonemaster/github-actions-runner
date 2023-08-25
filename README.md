@@ -11,7 +11,7 @@ version: '3.6'
 
 services:
   github-runner:
-    image: github-runner:latest
+    image: ghcr.io/stonemaster/github-actions-runner:main
     container_name: githubrunner
     restart: always
     environment:
