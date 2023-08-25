@@ -1,7 +1,7 @@
 FROM ghcr.io/actions/actions-runner:latest
 
 # Tools that are useful during Github action runs
-ENV TOOLS="bzip2 unzip"
+ENV TOOLS="bzip2 unzip git"
 ENV WORKDIR="/home/runner"
 ENV USER="runner"
 
