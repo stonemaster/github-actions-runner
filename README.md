@@ -1,8 +1,11 @@
 # Customized github-actions-runner Docker Image
 
 Based on the [official Docker image of Github's action runner](https://github.com/actions/runner/pkgs/container/actions-runner),
-this Docker image provides an easy way spin up a self-hosted Github Action
+this Docker image provides an easy way spin up a self-hosted GitHub Action
 Runner.
+
+Upon shutdown the runner will automatically be disconnected from the GitHub
+repository.
 
 ## Example `docker-compose.yml`
 

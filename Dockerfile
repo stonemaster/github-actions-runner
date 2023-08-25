@@ -1,4 +1,4 @@
-FROM ghcr.io/actions/actions-runner:2.308.0
+FROM ghcr.io/actions/actions-runner:latest
 
 # Tools that are useful during Github action runs
 ENV TOOLS="bzip2 unzip"
