@@ -2,8 +2,17 @@
 
 set -eu -o pipefail
 
-function disconnect {
+function cleanup {
+	# Disconnect runner from GitHub
 	./config.sh remove --token ${RUNNER_TOKEN}
+
+	# If specfied, run shutdown script.
+	if [ ! -z "${SHUTDOWN_RUNNER_SCRIPT}" ]; then
+		shutdown_script="${WORKDIR}/shutdown.sh"
+		echo ${SHUTDOWN_RUNNER_SCRIPT} | base64 -d > ${shutdown_script}
+		chmod +x ${shutdown_script}
+		exec ${shutdown_script}
+	fi
 }
 
 # Setup pre- and post scripts in case they have been set.
@@ -24,6 +33,6 @@ fi
 # Configuration
 ./config.sh --url ${GITHUB_REPO_URL} --token ${RUNNER_TOKEN}
 
-trap disconnect EXIT
+trap cleanup EXIT
 
 ./run.sh

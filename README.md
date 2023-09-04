@@ -63,3 +63,9 @@ Add the Base64 string as an environment variable:
       - PRE_JOB_SCRIPT=IyEvYmluL2Jhc2gKZWNobyAiSGVsbG8gV29ybGQhIgo=
   [...]
 ```
+
+### `SHUTDOWN_RUNNER_SCRIPT` (optional)
+
+Similar to the `PRE_JOB_SCRIPT` and `POST_JOB_SCRIPT` environment variables,
+this allows to specify a Base64-encoded script to be run at shutdown of the
+runner. The script is run after disconnecting the runner from GitHub.
