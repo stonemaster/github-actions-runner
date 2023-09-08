@@ -37,9 +37,6 @@ function prepare_script {
 		script_path="${workdir}/${filename}"
 		echo ${base64_contents} | base64 -d > ${script_path}
 		chmod 0500 ${script_path}
-		#!TODO: debug
-		echo "++ Action: $env"
-		echo "++ ${script_path}"
 		export ${env}=${script_path}
 	fi
 }
