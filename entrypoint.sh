@@ -37,13 +37,16 @@ function prepare_script {
 		script_path="${workdir}/${filename}"
 		echo ${base64_contents} | base64 -d > ${script_path}
 		chmod 0500 ${script_path}
+		#!TODO: debug
+		echo "++ Action: $env"
+		echo "++ ${script_path}"
 		export ${env}=${script_path}
 	fi
 }
 
 # Setup pre- and post scripts in case they have been set.
 prepare_script "pre-script.sh" "ACTIONS_RUNNER_HOOK_JOB_STARTED" "${pre_job_script}"
-prepare_script "post-script.sh" "ACTIONS_RUNNER_HOOK_JOB_STARTED" "${post_job_script}"
+prepare_script "post-script.sh" "ACTIONS_RUNNER_HOOK_JOB_COMPLETED" "${post_job_script}"
 
 # Configuration
 ./config.sh --url ${github_repo_url} --token ${runner_token}
