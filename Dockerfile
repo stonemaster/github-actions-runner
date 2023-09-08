@@ -1,7 +1,7 @@
 FROM ghcr.io/actions/actions-runner:latest
 
 # Tools that are useful during Github action runs
-ARG TOOLS="bzip2 unzip git coreutils psmisc jq"
+ARG TOOLS="bzip2 unzip git coreutils psmisc jq curl"
 ENV WORKDIR="/home/runner"
 ARG USER="runner"
 
