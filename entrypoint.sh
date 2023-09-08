@@ -24,26 +24,26 @@ function cleanup {
 	# If specfied, run shutdown script.
 	if [ ! -z "${shutdown_runner_script}" ]; then
 		shutdown_script="${workdir}/shutdown.sh"
-		echo ${shutdown_runner_script} | base64 -d > ${shutdown_script}
-		chmod +x ${shutdown_script}
-		exec ${shutdown_script}
+		exec echo ${shutdown_runner_script} | base64 -d | bash -
+	fi
+}
+
+function prepare_script {
+	local filename="${1}"
+	local env="${2}"
+	local base64_contents="${3}"
+
+	if [ ! -z "${base64_contents:-}" ]; then
+		script_path="${workdir}/${filename}"
+		echo ${base64_contents} | base64 -d > ${script_path}
+		chmod 0500 ${script_path}
+		export ${env}=${script_path}
 	fi
 }
 
 # Setup pre- and post scripts in case they have been set.
-if [ ! -z "${pre_job_script:-}" ]; then
-	pre_script_path="${workdir}/pre-script.sh"
-	echo ${pre_job_script} | base64 -d > ${pre_script_path}
-	chmod +x ${pre_script_path}
-	export ACTIONS_RUNNER_HOOK_JOB_STARTED=${pre_script_path}
-fi
-
-if [ ! -z "${post_job_script:-}" ]; then
-	post_script_path="${workdir}/post-script.sh"
-	echo ${post_job_script} | base64 -d > ${post_script_path}
-	chmod +x ${post_script_path}
-	export ACTIONS_RUNNER_HOOK_JOB_STARTED=${post_script_path}
-fi
+prepare_script "pre-script.sh" "ACTIONS_RUNNER_HOOK_JOB_STARTED" "${pre_job_script}"
+prepare_script "post-script.sh" "ACTIONS_RUNNER_HOOK_JOB_STARTED" "${post_job_script}"
 
 # Configuration
 ./config.sh --url ${github_repo_url} --token ${runner_token}
