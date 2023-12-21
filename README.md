@@ -14,7 +14,7 @@ version: '3.6'
 
 services:
   github-runner:
-    image: ghcr.io/stonemaster/github-actions-runner:main
+    image: ghcr.io/stonemaster/github-actions-runner:v1
     container_name: githubrunner
     restart: always
     environment:
@@ -37,7 +37,7 @@ runner* configuration page on GitHub.com.
 
 ### `PRE_JOB_SCRIPT` and `POST_JOB_SCRIPT` (both optional)
 
-These environment variables contain Base64 encoded scripts. If set, they will be
+These environment variables contain Base64 encoded scripts. If set they will be
 run before starts and after a job has completed. As per the [offical
 documentation](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/running-scripts-before-or-after-a-job#about-pre--and-post-job-scripts)
 these scripts should be written in `bash` or `sh`. The container makes sure the
@@ -66,6 +66,6 @@ Add the Base64 string as an environment variable:
 
 ### `SHUTDOWN_RUNNER_SCRIPT` (optional)
 
-Similar to the `PRE_JOB_SCRIPT` and `POST_JOB_SCRIPT` environment variables,
+Similar to the `PRE_JOB_SCRIPT` and `POST_JOB_SCRIPT` environment variables
 this allows to specify a Base64-encoded script to be run at shutdown of the
 runner. The script is run after disconnecting the runner from GitHub.
