@@ -2,10 +2,10 @@ name: Create and publish a Docker image
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   schedule:
     # Trigger every Sunday to update image from upstream automatically
-    - cron: '0 0 * * 0'
+    - cron: "0 0 * * 0"
 
 env:
   REGISTRY: ghcr.io
@@ -36,8 +36,15 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+        # Add support for more platforms with QEMU (optional)
+        # https://github.com/docker/setup-qemu-action
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build and push Docker image
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64
