@@ -1,4 +1,4 @@
-ARG VERSION="2.319.1"
+ARG VERSION="2.320.0"
 
 FROM ghcr.io/actions/actions-runner:${VERSION}
 
