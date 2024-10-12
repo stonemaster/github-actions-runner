@@ -5,7 +5,7 @@ FROM ghcr.io/actions/actions-runner:${VERSION}
 # Tools that are useful during Github action runs
 ARG TOOLS="bzip2 unzip git coreutils psmisc jq curl"
 ENV WORKDIR="/home/runner"
-ARG USER="runner"
+ENV USER="runner"
 
 USER root
 
@@ -16,7 +16,6 @@ RUN apt-get update && \
 ADD entrypoint.sh /home/runner/
 RUN chmod +x /home/runner/entrypoint.sh
 
-USER ${USER}
 WORKDIR ${WORKDIR}
 
 ENTRYPOINT [ "/home/runner/entrypoint.sh" ]

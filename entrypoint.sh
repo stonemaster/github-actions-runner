@@ -2,6 +2,17 @@
 
 set -e -o pipefail
 
+# remap docker group permissions
+if [ -e /var/run/docker.sock ]; then
+  chgrp docker /var/run/docker.sock
+fi
+
+echo "Chaning to user '${USER}'"
+su "${USER}"
+
+ls -lah /var/run/docker.sock
+docker ps
+
 # store local variables and clean environment variables to make sure to not
 # expose more information than necessary.
 workdir=${WORKDIR}
