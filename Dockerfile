@@ -5,7 +5,7 @@ FROM ghcr.io/actions/actions-runner:${VERSION}
 # Tools that are useful during Github action runs
 ARG TOOLS="bzip2 unzip git coreutils psmisc jq curl"
 ENV WORKDIR="/home/runner"
-ARG USER="root"
+ARG USER="runner"
 
 USER root
 
