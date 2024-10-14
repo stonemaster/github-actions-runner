@@ -22,6 +22,14 @@ services:
       - RUNNER_TOKEN=
 ```
 
+## Docker-in-Docker support
+
+If `/var/run/docker.sock` is mounted inside the container, the permissions
+will be changed of that socket file to allow running the docker client inside
+the container. This will also affect the host's socket file's permissions, so
+beware of that! But this will allow building Docker containers from within
+this GitHub runner.
+
 ## Environment variables
 
 ### `GITHUB_REPO_URL` (required)
