@@ -1,4 +1,4 @@
-ARG VERSION="2.321.0"
+ARG VERSION="2.328.0"
 
 FROM ghcr.io/actions/actions-runner:${VERSION}
 
@@ -13,7 +13,7 @@ RUN apt-get update && \
 	apt-get install -y ${TOOLS} && \
 	rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
-ADD entrypoint.sh /home/runner/
+COPY entrypoint.sh /home/runner/
 RUN chmod +x /home/runner/entrypoint.sh
 
 USER ${USER}
