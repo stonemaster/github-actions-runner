@@ -3,9 +3,6 @@ name: Create and publish a Docker image
 on:
   push:
     branches: [main]
-  schedule:
-    # Trigger every Sunday to update image from upstream automatically
-    - cron: "0 0 * * 0"
 
 env:
   REGISTRY: ghcr.io
