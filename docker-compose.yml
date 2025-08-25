@@ -2,6 +2,7 @@ version: '3.6'
 
 services:
   github-runner:
+    build: .
     image: ghcr.io/stonemaster/github-actions-runner:main
     container_name: githubrunner
     restart: always

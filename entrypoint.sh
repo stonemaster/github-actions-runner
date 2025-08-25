@@ -19,12 +19,11 @@ unset GITHUB_REPO_URL
 
 function cleanup {
 	# Disconnect runner from GitHub
-	./config.sh remove --token ${runner_token}
+	./config.sh remove --token "${runner_token}"
 
 	# If specfied, run shutdown script.
 	if [ ! -z "${shutdown_runner_script}" ]; then
-		shutdown_script="${workdir}/shutdown.sh"
-		exec echo ${shutdown_runner_script} | base64 -d | bash -
+		exec echo "${shutdown_runner_script}" | base64 -d | bash -
 	fi
 }
 
@@ -35,8 +34,8 @@ function prepare_script {
 
 	if [ ! -z "${base64_contents:-}" ]; then
 		script_path="${workdir}/${filename}"
-		echo ${base64_contents} | base64 -d > ${script_path}
-		chmod 0500 ${script_path}
+		echo "${base64_contents}" | base64 -d > "${script_path}"
+		chmod 0500 "${script_path}"
 		export ${env}=${script_path}
 	fi
 }
@@ -45,8 +44,8 @@ function prepare_script {
 prepare_script "pre-script.sh" "ACTIONS_RUNNER_HOOK_JOB_STARTED" "${pre_job_script}"
 prepare_script "post-script.sh" "ACTIONS_RUNNER_HOOK_JOB_COMPLETED" "${post_job_script}"
 
-# Configuration
-./config.sh --url ${github_repo_url} --token ${runner_token}
+# Configuration; also replace existing runner with the same name.
+./config.sh --url "${github_repo_url}" --token "${runner_token}" --replace
 
 trap cleanup EXIT
 
