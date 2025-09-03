@@ -45,8 +45,7 @@ prepare_script "pre-script.sh" "ACTIONS_RUNNER_HOOK_JOB_STARTED" "${pre_job_scri
 prepare_script "post-script.sh" "ACTIONS_RUNNER_HOOK_JOB_COMPLETED" "${post_job_script}"
 
 # Configuration; also replace existing runner with the same name.
-./config.sh remove || true
-./config.sh --url "${github_repo_url}" --token "${runner_token}"
+./config.sh --url "${github_repo_url}" --token "${runner_token}" --replace
 
 trap cleanup EXIT
 
