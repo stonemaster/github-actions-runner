@@ -1,5 +1,3 @@
-version: '3.6'
-
 services:
   github-runner:
     build: .
@@ -7,12 +5,11 @@ services:
     container_name: githubrunner
     restart: always
     environment:
-      - GITHUB_REPO_URL=https://github.com/stonemaster/github-actions-runner
-      - RUNNER_TOKEN=
+      - GITHUB_REPO_URL=${REPO_URL}
+      - RUNNER_TOKEN=${RUNNER_TOKEN}
       # echo Hello World
       - PRE_JOB_SCRIPT=ZWNobyBIZWxsbyBXb3JsZAo=
       # echo I am done
       - POST_JOB_SCRIPT=ZWNobyBJIGFtIGRvbmUK
       # echo Shutting down
       - SHUTDOWN_RUNNER_SCRIPT=ZWNobyBTaHV0dGluZyBkb3duCg==
-

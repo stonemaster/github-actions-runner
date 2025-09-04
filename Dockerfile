@@ -10,8 +10,8 @@ ARG USER="runner"
 USER root
 
 RUN apt-get update && \
-	apt-get install -y ${TOOLS} && \
-	rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
+  apt-get install -y ${TOOLS} && \
+  rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
 COPY entrypoint.sh /home/runner/
 RUN chmod +x /home/runner/entrypoint.sh

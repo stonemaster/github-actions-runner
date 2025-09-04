@@ -18,26 +18,26 @@ github_repo_url=${GITHUB_REPO_URL}
 unset GITHUB_REPO_URL
 
 function cleanup {
-	# Disconnect runner from GitHub
-	./config.sh remove --token "${runner_token}"
+  # Disconnect runner from GitHub
+  ./config.sh remove --token "${runner_token}"
 
-	# If specfied, run shutdown script.
-	if [ ! -z "${shutdown_runner_script}" ]; then
-		exec echo "${shutdown_runner_script}" | base64 -d | bash -
-	fi
+  # If specfied, run shutdown script.
+  if [ ! -z "${shutdown_runner_script}" ]; then
+    exec echo "${shutdown_runner_script}" | base64 -d | bash -
+  fi
 }
 
 function prepare_script {
-	local filename="${1}"
-	local env="${2}"
-	local base64_contents="${3}"
+  local filename="${1}"
+  local env="${2}"
+  local base64_contents="${3}"
 
-	if [ ! -z "${base64_contents:-}" ]; then
-		script_path="${workdir}/${filename}"
-		echo "${base64_contents}" | base64 -d > "${script_path}"
-		chmod 0500 "${script_path}"
-		export ${env}=${script_path}
-	fi
+  local script_path="${workdir}/${filename}"
+  if [ ! -z "${base64_contents:-}" ] && [ ! -f "${script_path}" ]; then
+    echo "${base64_contents}" | base64 -d >"${script_path}"
+    chmod 0500 "${script_path}"
+    export ${env}=${script_path}
+  fi
 }
 
 # Setup pre- and post scripts in case they have been set.
@@ -45,7 +45,11 @@ prepare_script "pre-script.sh" "ACTIONS_RUNNER_HOOK_JOB_STARTED" "${pre_job_scri
 prepare_script "post-script.sh" "ACTIONS_RUNNER_HOOK_JOB_COMPLETED" "${post_job_script}"
 
 # Configuration; also replace existing runner with the same name.
-./config.sh --url "${github_repo_url}" --token "${runner_token}" --replace
+if [ -f .credentials ]; then
+  ./config.sh remove --token "${runner_token}"
+fi
+
+./config.sh --unattended --url "${github_repo_url}" --token "${runner_token}" --replace
 
 trap cleanup EXIT
 

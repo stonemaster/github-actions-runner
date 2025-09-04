@@ -5,13 +5,11 @@ this Docker image provides an easy way spin up a self-hosted GitHub Action
 Runner.
 
 Upon shutdown the runner will automatically be disconnected from the GitHub
-repository.
+repository, per default.
 
 ## Example `docker-compose.yml`
 
 ```yaml
-version: '3.6'
-
 services:
   github-runner:
     image: ghcr.io/stonemaster/github-actions-runner:main
