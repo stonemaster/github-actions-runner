@@ -46,7 +46,7 @@ prepare_script "post-script.sh" "ACTIONS_RUNNER_HOOK_JOB_COMPLETED" "${post_job_
 
 # Configuration; also replace existing runner with the same name.
 if [ -f .credentials ]; then
-  ./config.sh remove --token "${runner_token}"
+  ./config.sh remove --token "${runner_token}" || true
 fi
 
 ./config.sh --unattended --url "${github_repo_url}" --token "${runner_token}" --replace
