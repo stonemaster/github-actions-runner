@@ -26,12 +26,22 @@ services:
 
 *Example*: `https://github.com/stonemaster/github-actions-runner`
 
-The *https* URL of the GitHub repository.
+The *https* URL of the GitHub repository **or** that of a
+GitHub organization.
 
-### `RUNNER_TOKEN` (required)
+### `RUNNER_TOKEN` or `GITHUB_REGISTRATION_TOKEN` (required)
 
-The runner token as provided by the GitHub configuration on the *new self-hosted
-runner* configuration page on GitHub.com.
+- If `RUNNER_TOKEN` is set, it will be used as the registration token.
+Those tokens expire and are best suited for short-lived runners.
+The runner token can be fetched in GitHub settings on the *new self-hosted
+runner* configuration page.
+- If `GITHUB_REGISTRATION_TOKEN` is set, it will to fetch a new registration
+token for this runner. A fine-grained personal access token (PAT) with the
+**Self-hosted runners** `write` permission is required to use this option.
+See the [official documentation](https://docs.github.com/en/rest/authentication/permissions-required-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28#organization-permissions-for-self-hosted-runners).
+
+> ![NOTE]
+> `RUNNER_TOKEN` has precedence over `GITHUB_REGISTRATION_TOKEN` if both are set.
 
 ### `PRE_JOB_SCRIPT` and `POST_JOB_SCRIPT` (both optional)
 

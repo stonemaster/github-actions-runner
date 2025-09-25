@@ -6,7 +6,10 @@ services:
     restart: always
     environment:
       - GITHUB_REPO_URL=${REPO_URL}
+      # One of the two works:
       - RUNNER_TOKEN=${RUNNER_TOKEN}
+      # or:
+      # - GITHUB_REGISTRATION_TOKEN=${GITHUB_REGISTRATION_TOKEN}
       # echo Hello World
       - PRE_JOB_SCRIPT=ZWNobyBIZWxsbyBXb3JsZAo=
       # echo I am done
