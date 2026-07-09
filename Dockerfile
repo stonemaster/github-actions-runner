@@ -1,6 +1,4 @@
-ARG VERSION="2.328.0"
-
-FROM ghcr.io/actions/actions-runner:${VERSION}
+FROM ghcr.io/actions/actions-runner:2.328.0
 
 # Tools that are useful during Github action runs
 ARG TOOLS="bzip2 unzip git coreutils psmisc jq curl"
